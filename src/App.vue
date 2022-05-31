@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
     <!-- 导航栏 -->
     <TopNavBar></TopNavBar>
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <FooterBar/>
   </div>
 </template>
 
@@ -13,10 +13,12 @@
 import HelloWorld from './components/HelloWorld.vue'
 import TopNavBar from "@/components/layout/TopNavBar";
 import SideNavBar from "@/components/layout/SideNavBar";
+import FooterBar from "@/components/layout/FooterBar";
 
 export default {
   name: 'App',
   components: {
+    FooterBar,
     HelloWorld,
     TopNavBar,
     SideNavBar
