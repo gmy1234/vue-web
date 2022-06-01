@@ -8,11 +8,15 @@ const routes = [
         path: "/",
         component: resolve => require(["../views/home/home.vue"], resolve)
     },
-    ]
+    {
+        path: "/articles/:articleId",
+        component: resolve => require(["../views/article/article.vue"], resolve)
+    },
+]
 
 
 const router = new VueRouter({
-    mode:"history",
+    mode: "history",
     base: process.env.BASE_URL,
     routes
 })

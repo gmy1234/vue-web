@@ -4,6 +4,10 @@
     <TopNavBar></TopNavBar>
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
+    <!-- 内容 -->
+    <v-main >
+      <router-view :key="$route.fullPath"/>
+    </v-main>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <FooterBar/>
   </v-app>
