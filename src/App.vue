@@ -1,19 +1,19 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <!-- 导航栏 -->
     <TopNavBar></TopNavBar>
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <FooterBar/>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import TopNavBar from "@/components/layout/TopNavBar";
-import SideNavBar from "@/components/layout/SideNavBar";
-import FooterBar from "@/components/layout/FooterBar";
+import TopNavBar from "./components/layout/TopNavBar.vue";
+import SideNavBar from "./components/layout/SideNavBar.vue";
+import FooterBar from "./components/layout/FooterBar.vue";
 
 export default {
   name: 'App',
