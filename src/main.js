@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from "./store";
+import store from "./store"
+import router from './router'
 import vuetify from './plugins/vuetify' // 引入第一步
 import Vuetify from 'vuetify' // 引入第二部：还要引入这个才能用Vuetify
 
@@ -14,6 +15,7 @@ sp.src = '//at.alicdn.com/t/font_3436004_1xgnyixqn78.js'
 
 document.body.appendChild(sp)
 new Vue({
+  router,
   store,
   vuetify, // vue 挂载组件
   render: h => h(App),
