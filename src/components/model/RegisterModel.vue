@@ -21,7 +21,7 @@
             placeholder="请输入6位验证码"
             @keyup.enter="register"
           />
-          <v-btn text small :disabled="flag" @click="sendCode">
+          <v-btn :loading="buttonLoad" :disabled="messageCodeFlag" color="success" @click="sendCode" small>
             {{ codeMsg }}
           </v-btn>
         </div>
@@ -57,10 +57,11 @@ export default {
       username: "",
       code: "",
       password: "",
-      flag: true,
+      messageCodeFlag: true, // 发送验证码禁用 标识
       codeMsg: "发送",
       time: 60,
-      show: false
+      show: false,
+      buttonLoad: false // 按钮加载 标识
     };
   },
   computed: {
@@ -118,9 +119,9 @@ export default {
       const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
       if (reg.test(value)) {
-        this.flag = false;
+        this.messageCodeFlag = false;
       } else {
-        this.flag = true;
+        this.messageCodeFlag = true;
       }
     }
   }
