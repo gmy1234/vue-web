@@ -9,7 +9,12 @@
       <router-view :key="$route.fullPath"/>
     </v-main>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- 底部 -->
     <FooterBar/>
+    <!-- 登录模态框 -->
+    <LoginModel/>
+    <!-- 注册模态框 -->
+    <RegisterModel/>
   </v-app>
 </template>
 
@@ -18,6 +23,8 @@ import HelloWorld from './components/HelloWorld.vue'
 import TopNavBar from "./components/layout/TopNavBar.vue";
 import SideNavBar from "./components/layout/SideNavBar.vue";
 import FooterBar from "./components/layout/FooterBar.vue";
+import LoginModel from "@/components/model/LoginModel";
+import RegisterModel from "@/components/model/RegisterModel";
 
 export default {
   name: 'App',
@@ -25,7 +32,9 @@ export default {
     FooterBar,
     HelloWorld,
     TopNavBar,
-    SideNavBar
+    SideNavBar,
+    LoginModel,
+    RegisterModel
   }
 }
 </script>

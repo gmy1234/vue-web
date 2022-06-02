@@ -8,12 +8,13 @@ import Nprogress from "nprogress" // 进度条
 import "nprogress/nprogress.css"
 import './assets/css/index.css'
 import dayjs from "dayjs"
-
+import InfiniteLoading from "vue-infinite-loading" // 无限加载
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify) // 用 Vuetify
 Vue.use(Nprogress)
+Vue.use(InfiniteLoading)
 
 
 

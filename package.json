@@ -17,7 +17,8 @@
     "nprogress": "0.2.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "dayjs": "^1.10.6"
+    "dayjs": "^1.10.6",
+    "vue-infinite-loading": "^2.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

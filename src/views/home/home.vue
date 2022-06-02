@@ -63,7 +63,7 @@
             </div>
             <div class="article-info">
               <!-- 是否置顶 -->
-              <span v-if="item.isTop == 1">
+              <span v-if="item.isTop === 1">
                 <span style="color:#ff7242">
                   <i class="iconfont"/> 置顶
                 </span>
