@@ -18,7 +18,10 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "dayjs": "^1.10.6",
-    "vue-infinite-loading": "^2.4.5"
+    "vue-infinite-loading": "^2.4.5",
+    "axios": "0.21.4",
+    "vue-axios": "^2.1.5",
+    "jquery": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -85,11 +85,42 @@ export default {
     },
     // 发送验证码
     sendCode() {
+      // eslint-disable-next-line no-undef
+      const captcha = new TencentCaptcha(this.config.TENCENT_CAPTCHA,  (res)=> {
+        console.log(res)
+        if (res.ret === 0){
+          // 倒计时
+          this.countDown()
+          // 发送邮件
+          this.axios.get("api/user/code",{
+            params:{ username: this.username }
+          }).then(res =>{
+            if (res.flag) {
+              this.$toast({ type: "success", message: "发送成功" });
+            } else {
+              this.$toast({ type: "error", message: res.message });
+            }
+          })
 
+        }
+      })
+      // 显示验证码
+      captcha.show();
     },
-    //
+    // 发送按钮变成60s 倒计时
     countDown() {
-
+      this.flag = true;
+      this.timer = setInterval(() => {
+        this.time--;
+        this.codeMsg = this.time + "s";
+        // 重制
+        if (this.time <= 0) {
+          clearInterval(this.timer);
+          this.codeMsg = "发送";
+          this.time = 60;
+          this.flag = false;
+        }
+      }, 1000);
     },
     register() {
       var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;

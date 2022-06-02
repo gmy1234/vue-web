@@ -9,13 +9,19 @@ import "nprogress/nprogress.css"
 import './assets/css/index.css'
 import dayjs from "dayjs"
 import InfiniteLoading from "vue-infinite-loading" // 无限加载
+import axios from "axios";
+import VueAxios from "vue-axios";
+import config from "@/assets/js/config";
+import Toast from "./components/toast/index";
 
+Vue.prototype.config = config
 Vue.config.productionTip = false
 
 Vue.use(Vuetify) // 用 Vuetify
 Vue.use(Nprogress)
 Vue.use(InfiniteLoading)
-
+Vue.use(VueAxios,axios)
+Vue.use(Toast)
 
 
 Vue.filter("date", function(value) {
