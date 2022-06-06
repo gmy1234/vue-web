@@ -95,7 +95,7 @@ export default {
           this.axios.get("api/user/code",{
             params:{ username: this.username }
           }).then(res =>{
-            if (res.flag) {
+            if (res.data.flag) {
               this.$toast({ type: "success", message: "发送成功" });
               // TODO :注册完直接进行登陆
             } else {
