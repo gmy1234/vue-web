@@ -97,8 +97,9 @@ export default {
           }).then(res =>{
             if (res.flag) {
               this.$toast({ type: "success", message: "发送成功" });
+              // TODO :注册完直接进行登陆
             } else {
-              this.$toast({ type: "error", message: res.message });
+              this.$toast({ type: "error", message: "发送失败" });
             }
           })
 
@@ -141,6 +142,14 @@ export default {
         password: this.password,
         code: this.code
       };
+      this.axios.post("api/user/register", user).then(res =>{
+        if (res.flag){
+          this.$toast({type: "success", message: "注册成功"});
+
+        }
+      }).catch(error =>{
+        this.$toast({type: "error", message: "注册失败"});
+      })
     }
 
   },

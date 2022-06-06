@@ -1,9 +1,7 @@
 <template>
   <v-dialog v-model="loginFlag" :fullscreen="isMobile" max-width="460">
     <v-card class="login-container" style="border-radius:4px">
-      <v-icon class="float-right" @click="loginFlag = false">
-        mdi-close
-      </v-icon>
+      <v-icon class="float-right" @click="loginFlag = false">mdi-close</v-icon>
       <div class="login-wrapper">
         <!-- 用户名 -->
         <v-text-field
@@ -92,7 +90,45 @@ export default {
       this.$store.state.forgetFlag = true;
     },
     login() {
+      console.log(this.loginFlag)
+      // 校验
+      const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      if (!reg.test(this.username)) {
+        this.$toast({ type: "error", message: "邮箱格式不正确" });
+        return false;
+      }
+      if (this.password.trim().length === 0) {
+        this.$toast({ type: "error", message: "密码不能为空" });
+        return false;
+      }
+      // 图形验证码
+      const captcha = new TencentCaptcha(this.config.TENCENT_CAPTCHA, res => {
+        if (res.ret === 0) {
+          // 发送登陆请求
+          let parma = {
+            username: this.username,
+            password: this.password
+          }
+          this.axios.post("api/user/login", parma).then(res => {
+            if (res.flag){
+              this.username = ""
+              this.password = ""
+              this.$store.commit("login", res.data)
+              this.$toast({ type: "success", message: "登录成功" })
+              this.$store.state.loginFlag = false
+              console.log(this.this.$store.state.loginFlag)
 
+            }else {
+              this.$toast({ type: "error", methods: "登陆失败" })
+            }
+          }).catch(error =>{
+            console.log(error)
+          })
+        }
+      });
+
+      // 显示验证码
+      captcha.show()
     },
     qqLogin() {
 
