@@ -28,19 +28,18 @@ export default new Vuex.Store({
     userToken: ""
   },
   mutations: {
-    login(state, token) {
-      // state.userId = user.userInfoId;
-      // state.avatar = user.avatar;
-      // state.nickname = user.nickname;
-      // state.intro = user.intro;
-      // state.webSite = user.webSite;
-      // state.articleLikeSet = user.articleLikeSet ? user.articleLikeSet : [];
-      // state.commentLikeSet = user.commentLikeSet ? user.commentLikeSet : [];
-      // state.talkLikeSet = user.talkLikeSet ? user.talkLikeSet : [];
-      // state.email = user.email;
-      // state.loginType = user.loginType;
-      state.userToken = token
-
+    login(state, user) {
+      state.userId = user.userInfoId;
+      state.avatar = user.avatar;
+      state.nickname = user.nickname;
+      state.intro = user.intro;
+      state.webSite = user.webSite;
+      state.articleLikeSet = user.articleLikeSet ? user.articleLikeSet : [];
+      state.commentLikeSet = user.commentLikeSet ? user.commentLikeSet : [];
+      state.talkLikeSet = user.talkLikeSet ? user.talkLikeSet : [];
+      state.email = user.email;
+      state.loginType = user.loginType;
+      state.userToken = user.token
     },
     logout(state) {
       state.userId = null;
@@ -53,6 +52,8 @@ export default new Vuex.Store({
       state.talkLikeSet = [];
       state.email = null;
       state.loginType = null;
+      state.userToken = "";
+      state.isLogin = false;
     },
     saveLoginUrl(state, url) {
       state.loginUrl = url;

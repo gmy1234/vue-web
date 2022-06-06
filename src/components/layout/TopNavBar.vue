@@ -135,7 +135,6 @@ export default {
     },
     logout() {
       // 在个人中心，跳回上一页
-      console.log("path: "+ this.$route.path)
       if (this.$route.path === "/user") {
         this.$router.back();
       }
@@ -145,8 +144,6 @@ export default {
         if (res.data.flag) {
           this.$store.commit("logout");
           this.$toast({ type: "success", message: "注销成功" });
-          // 删除该用户的token
-          this.$store.state.userToken = ""
         } else {
           this.$toast({ type: "error", message: data.message });
         }
