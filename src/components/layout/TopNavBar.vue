@@ -134,6 +134,25 @@ export default {
       this.$store.state.loginFlag = true;
     },
     logout() {
+      // 在个人中心，跳回上一页
+      console.log("path: "+ this.$route.path)
+      if (this.$route.path === "/user") {
+        this.$router.back();
+      }
+      this.axios.get("api/user/logout",{
+        headers: { token: this.$store.state.userToken }
+      }).then(res =>{
+        if (res.data.flag) {
+          this.$store.commit("logout");
+          this.$toast({ type: "success", message: "注销成功" });
+          // 删除该用户的token
+          this.$store.state.userToken = ""
+        } else {
+          this.$toast({ type: "error", message: data.message });
+        }
+      }).catch(error =>{
+        console.log(error)
+      })
 
     }
   }
