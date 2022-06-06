@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     searchFlag: false,
-    loginFlag: false,
+    isLogin: false, // 用户是否登陆
+    loginFlag: false, // 登陆窗口是否打开
     registerFlag: false,
     forgetFlag: false,
     emailFlag: false,
@@ -23,20 +24,23 @@ export default new Vuex.Store({
     articleLikeSet: [],
     commentLikeSet: [],
     talkLikeSet: [],
-    blogInfo: {}
+    blogInfo: {},
+    userToken: ""
   },
   mutations: {
-    login(state, user) {
-      state.userId = user.userInfoId;
-      state.avatar = user.avatar;
-      state.nickname = user.nickname;
-      state.intro = user.intro;
-      state.webSite = user.webSite;
-      state.articleLikeSet = user.articleLikeSet ? user.articleLikeSet : [];
-      state.commentLikeSet = user.commentLikeSet ? user.commentLikeSet : [];
-      state.talkLikeSet = user.talkLikeSet ? user.talkLikeSet : [];
-      state.email = user.email;
-      state.loginType = user.loginType;
+    login(state, token) {
+      // state.userId = user.userInfoId;
+      // state.avatar = user.avatar;
+      // state.nickname = user.nickname;
+      // state.intro = user.intro;
+      // state.webSite = user.webSite;
+      // state.articleLikeSet = user.articleLikeSet ? user.articleLikeSet : [];
+      // state.commentLikeSet = user.commentLikeSet ? user.commentLikeSet : [];
+      // state.talkLikeSet = user.talkLikeSet ? user.talkLikeSet : [];
+      // state.email = user.email;
+      // state.loginType = user.loginType;
+      state.userToken = token
+
     },
     logout(state) {
       state.userId = null;
@@ -78,7 +82,7 @@ export default new Vuex.Store({
     },
     articleLike(state, articleId) {
       var articleLikeSet = state.articleLikeSet;
-      if (articleLikeSet.indexOf(articleId) != -1) {
+      if (articleLikeSet.indexOf(articleId) !== -1) {
         articleLikeSet.splice(articleLikeSet.indexOf(articleId), 1);
       } else {
         articleLikeSet.push(articleId);
@@ -86,7 +90,7 @@ export default new Vuex.Store({
     },
     commentLike(state, commentId) {
       var commentLikeSet = state.commentLikeSet;
-      if (commentLikeSet.indexOf(commentId) != -1) {
+      if (commentLikeSet.indexOf(commentId) !== -1) {
         commentLikeSet.splice(commentLikeSet.indexOf(commentId), 1);
       } else {
         commentLikeSet.push(commentId);
@@ -94,7 +98,7 @@ export default new Vuex.Store({
     },
     talkLike(state, talkId) {
       var talkLikeSet = state.talkLikeSet;
-      if (talkLikeSet.indexOf(talkId) != -1) {
+      if (talkLikeSet.indexOf(talkId) !== -1) {
         talkLikeSet.splice(talkLikeSet.indexOf(talkId), 1);
       } else {
         talkLikeSet.push(talkId);

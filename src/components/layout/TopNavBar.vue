@@ -74,7 +74,7 @@
           </router-link>
         </div>
         <div class="menus-item">
-          <a class="menu-btn" v-if="!this.$store.state.avatar" @click="openLogin">
+          <a class="menu-btn" v-if="!this.$store.state.userToken" @click="openLogin">
             <icon-font type="login"/>
             登录
           </a>

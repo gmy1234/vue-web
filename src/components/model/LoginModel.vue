@@ -80,6 +80,10 @@ export default {
       };
     }
   },
+  created() {
+    this.loginFlag = false
+    console.log(this.$store.state.userToken)
+  },
   methods: {
     openRegister() {
       this.$store.state.loginFlag = false;
@@ -90,7 +94,6 @@ export default {
       this.$store.state.forgetFlag = true;
     },
     login() {
-      console.log(this.loginFlag)
       // 校验
       const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       if (!reg.test(this.username)) {
@@ -110,14 +113,16 @@ export default {
             password: this.password
           }
           this.axios.post("api/user/login", parma).then(res => {
-            if (res.flag){
+            console.log(res)
+            if (res.data.flag){
               this.username = ""
               this.password = ""
-              this.$store.commit("login", res.data)
+              // 提交token 到 全局变量中
+              this.$store.commit("login", res.data.data)
               this.$toast({ type: "success", message: "登录成功" })
-              this.$store.state.loginFlag = false
-              console.log(this.this.$store.state.loginFlag)
-
+              // 关闭登陆框
+              this.loginFlag = false
+              this.$store.state.isLogin = true
             }else {
               this.$toast({ type: "error", methods: "登陆失败" })
             }
