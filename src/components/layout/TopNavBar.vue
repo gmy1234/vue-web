@@ -9,82 +9,54 @@
       <div class="float-right nav-title">
         <div class="menus-item">
           <a class="menu-btn" @click="openSearch">
-            <IconFont type="search"/>
-            搜索
+            <IconFont type="search"/>搜索
           </a>
         </div>
         <div class="menus-item">
-          <router-link class="menu-btn" to="/">
-            <icon-font type="home"/>
-            首页
-          </router-link>
+          <router-link class="menu-btn" to="/"><icon-font type="home"/>首页</router-link>
         </div>
         <div class="menus-item">
           <a class="menu-btn">
-            <icon-font type="discover"/>
-            发现
-            <i class="iconfont iconxiangxia2 expand"/>
+            <icon-font type="discover"/>发现<i class="iconfont  expand"/>
           </a>
           <ul class="menus-submenu">
             <li>
-              <router-link to="/archives">
-                <i class="iconfont iconguidang"/>归档
-              </router-link>
+              <router-link to="/archives"><i class="iconfont "/>归档</router-link>
             </li>
             <li>
-              <router-link to="/categories">
-                <i class="iconfont iconfenlei"/>分类
-              </router-link>
+              <router-link to="/categories"><i class="iconfont "/>分类</router-link>
             </li>
             <li>
-              <router-link to="/tags">
-                <i class="iconfont iconbiaoqian"/> 标签
-              </router-link>
+              <router-link to="/tags"><i class="iconfont"/> 标签</router-link>
             </li>
           </ul>
         </div>
         <div class="menus-item">
-          <a class="menu-btn">
-            <icon-font type="play"/>
-            娱乐
-          </a>
+          <a class="menu-btn"><icon-font type="play"/>娱乐</a>
           <ul class="menus-submenu">
             <li>
-              <router-link to="/albums">
-                <i class="iconfont iconxiangce1"/> 相册
-              </router-link>
+              <router-link :to="{name: 'wallpaper' }"><i class="iconfont"/> 相册</router-link>
             </li>
             <li>
-              <router-link to="/talks">
-                <i class="iconfont iconpinglun"/> 说说
-              </router-link>
+              <router-link to="/talks"><i class="iconfont"/> 说说</router-link>
             </li>
           </ul>
         </div>
         <div class="menus-item">
-          <router-link class="menu-btn" to="/about">
-            <icon-font type="about"/>
-            关于
-          </router-link>
+          <router-link class="menu-btn" to="/about"><icon-font type="about"/>关于</router-link>
         </div>
         <div class="menus-item">
-          <router-link class="menu-btn" to="/message">
-            <icon-font type="message"/>
-            留言
-          </router-link>
+          <router-link class="menu-btn" to="/message"><icon-font type="message"/>留言</router-link>
         </div>
         <div class="menus-item">
           <a class="menu-btn" v-if="!this.$store.state.userToken" @click="openLogin">
-            <icon-font type="login"/>
-            登录
+            <icon-font type="login"/>登录
           </a>
           <template v-else>
             <img class="user-avatar" :src="this.$store.state.avatar" height="30" width="30"/>
             <ul class="menus-submenu">
               <li>
-                <router-link to="/user">
-                  <i class=""/> 个人中心
-                </router-link>
+                <router-link to="/album"><i class=""/> 个人中心</router-link>
               </li>
               <li>
                 <a @click="logout"><i class="iconfont"/> 退出</a>

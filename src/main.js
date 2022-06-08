@@ -13,6 +13,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import config from "@/assets/js/config";
 import Toast from "./components/toast/index";
+import VueImageSwipe from "vue-image-swipe"; // 壁纸用的组件
 
 Vue.prototype.config = config
 Vue.config.productionTip = false
@@ -22,6 +23,7 @@ Vue.use(Nprogress)
 Vue.use(InfiniteLoading)
 Vue.use(VueAxios,axios)
 Vue.use(Toast)
+Vue.use(VueImageSwipe)
 
 
 Vue.filter("date", function(value) {
@@ -59,6 +61,22 @@ router.afterEach(() => {
   });
   Nprogress.done();
 });
+
+// 添加请求头：token
+axios.interceptors.request.use(
+    config =>{
+      if (store.state.userToken !==''){
+        config.headers['token'] = store.state.userToken
+      }
+      return config
+    },
+    error => {
+      // do something with request error
+      console.log(error) // for debug
+      return Promise.reject(error)
+    }
+
+)
 
 document.body.appendChild(sp)
 new Vue({

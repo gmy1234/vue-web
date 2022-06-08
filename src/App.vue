@@ -5,10 +5,9 @@
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
     <!-- 内容 -->
-    <v-main >
+    <v-main style="padding-bottom: 0">
       <router-view :key="$route.fullPath"/>
     </v-main>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
     <!-- 底部 -->
     <FooterBar/>
     <!-- 登录模态框 -->
@@ -19,7 +18,6 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import TopNavBar from "./components/layout/TopNavBar.vue";
 import SideNavBar from "./components/layout/SideNavBar.vue";
 import FooterBar from "./components/layout/FooterBar.vue";
@@ -30,11 +28,23 @@ export default {
   name: 'App',
   components: {
     FooterBar,
-    HelloWorld,
     TopNavBar,
     SideNavBar,
     LoginModel,
     RegisterModel
+  },
+  created() {
+    // 获取博客信息
+    this.getBlogInfo();
+    // 上传访客信息
+    this.axios.post("/api//blog/reportVisitor");
+  },
+  methods:{
+    getBlogInfo() {
+      this.axios.get("/api/blog/info").then(res  => {
+        this.$store.commit("checkBlogInfo", res.data);
+      })
+    }
   }
 }
 </script>

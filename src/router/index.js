@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter)
 
+
 const routes = [
     {
         path: "/",
@@ -14,11 +15,25 @@ const routes = [
     },
     {
         path: "/user",
-        component: resolve => require(["../views/user/User.vue"], resolve),
-        meta: {
-            title: "个人中心"
-        }
+        component: resolve => require(["../views/user/user.vue"], resolve),
+        meta: { title: "个人中心" }
     },
+    {
+        path: '/wallpaper',
+        name: "wallpaper",
+        component: () => import('@/views/wallpaper/album.vue'),
+        meta: {title: "壁纸集"},
+
+    },
+    {
+        path: '/wallpaper/:id',
+        name: "photo",
+        component: () => import('@/views/wallpaper/photo.vue'),
+        meta: {title: "壁纸"},
+
+    }
+
+
 ]
 
 
