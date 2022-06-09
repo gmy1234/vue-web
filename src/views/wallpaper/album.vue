@@ -31,24 +31,23 @@ export default {
   },
   computed: {
     cover() {
-      // let cover = "";
-      // this.$store.state.blogInfo.pageList.forEach(item => {
-      //   if (item.pageLabel === "wallpaper") {
-      //     cover = item.pageCover;
-      //   }
-      // });
-      // return "background: url(" + cover + ") center center / cover no-repeat";
-      return ''
+      let cover = ''
+      this.$store.state.blogInfo.backgroundList.forEach(item => {
+        if (item.backgroundLabel === "wallpaper") {
+          cover = item.backgroundCover;
+        }
+      });
+      return "background: url(" + cover + ") center center / cover no-repeat"
     }
   },
   created() {
     this.getAlbumList()
   },
   methods: {
-    getAlbumList(){
-      this.axios.get("api/wallpaper/albums").then(res =>{
+    getAlbumList() {
+      this.axios.get("/api/wallpaper/albums").then(res => {
         this.photoAlbumList = res.data.data
-      }).catch(error =>{
+      }).catch(error => {
         console.log(error)
       })
     }

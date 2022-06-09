@@ -2,11 +2,12 @@
   <v-footer app padless absolute v-if="!this.isMessage">
     <div class="footer-wrap">
       <div>
-        底部信息
+        ©{{ blogInfo.websiteConfig.websiteCreateTime | year }} -
+        {{ new Date().getFullYear() }} By
+        {{ blogInfo.websiteConfig.websiteAuthor }}
       </div>
       <a href="https://beian.miit.gov.cn/" target="_blank">
-<!--        {{ blogInfo.websiteConfig.websiteRecordNo }}-->
-        {{ blogInfo }}
+        {{ blogInfo.websiteConfig.websiteRecordNo }}
       </a>
     </div>
   </v-footer>
@@ -17,8 +18,7 @@ export default {
   name: 'FooterBar',
   computed: {
     isMessage() {
-      // return this.$route.path == "/message";
-      return false
+      return this.$route.path === "/message";
     },
     blogInfo() {
       return this.$store.state.blogInfo;

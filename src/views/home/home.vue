@@ -245,12 +245,12 @@ export default {
       };
     },
     cover() {
-      const cover = "http://blog-gmy.oss-cn-hangzhou.aliyuncs.com/articles/f178fb64871cc376e587d6745c9bdd30.jpg";
-      // this.$store.state.blogInfo.pageList.forEach(item => {
-      //   if (item.pageLabel === "home") {
-      //     cover = item.pageCover;
-      //   }
-      // });
+      let cover = ''
+      this.$store.state.blogInfo.backgroundList.forEach(item => {
+        if (item.backgroundLabel === "home") {
+          cover = item.backgroundCover;
+        }
+      });
       return "background: url(" + cover + ") center center / cover no-repeat";
     }
   },

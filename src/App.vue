@@ -37,12 +37,12 @@ export default {
     // 获取博客信息
     this.getBlogInfo();
     // 上传访客信息
-    this.axios.post("/api//blog/reportVisitor");
+    this.axios.post("/api/blog/reportVisitor");
   },
   methods:{
     getBlogInfo() {
       this.axios.get("/api/blog/info").then(res  => {
-        this.$store.commit("checkBlogInfo", res.data);
+        this.$store.commit("checkBlogInfo", res.data.data);
       })
     }
   }

@@ -67,7 +67,7 @@ export default new Vuex.Store({
       state.webSite = user.webSite;
     },
     savePageInfo(state, pageList) {
-      state.pageList = pageList;
+      state.backgroundList = pageList;
     },
     updateAvatar(state, avatar) {
       state.avatar = avatar;
