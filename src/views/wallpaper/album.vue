@@ -10,12 +10,11 @@
         <v-col :md="6" v-for="item of photoAlbumList" :key="item.id">
           <div class="album-item">
             <v-img class="album-cover" :src="item.albumCover"/>
-            <router-link :to="{path: '/wallpaper/', params:{id: item.id} }" class="album-wrapper">
+            <router-link :to="{ path: '/wallpaper/' + item.id }" class="album-wrapper">
               <div class="album-name">{{ item.albumName }}</div>
               <div class="album-desc">{{ item.albumDesc }}</div>
             </router-link>
           </div>
-          <v-btn @click="test(item.id)">点击按钮跳转</v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -46,9 +45,6 @@ export default {
     this.getAlbumList()
   },
   methods: {
-    test(id){
-      this.$router.push('/wallpaper/' + id)
-    },
     getAlbumList(){
       this.axios.get("api/wallpaper/albums").then(res =>{
         this.photoAlbumList = res.data.data
