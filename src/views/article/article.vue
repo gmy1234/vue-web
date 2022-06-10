@@ -273,11 +273,12 @@ export default {
             }
           });
           // 添加图片预览功能
+          const that = this;
           const imgList = this.$refs.article.getElementsByTagName("img");
           for (let i = 0; i < imgList.length; i++) {
             this.imgList.push(imgList[i].src);
             imgList[i].addEventListener("click", function(e) {
-              this.previewImg(e.target.currentSrc);
+              that.previewImg(e.target.currentSrc);
             });
           }
         });
@@ -339,6 +340,7 @@ export default {
       this.article = article;
     },
     previewImg(img) {
+      console.log(img)
       this.$imagePreview({
         images: this.imgList,
         index: this.imgList.indexOf(img)
@@ -350,6 +352,7 @@ export default {
           .replace(/[|]*\n/, "")
           .replace(/&npsp;/gi, "");
     },
+    // TODO: 完善
     like() {
       // 判断登录
       if (!this.$store.state.userId) {
