@@ -5,11 +5,11 @@
       <div class="banner-container">
         <!-- 联系方式 -->
         <h1 class="blog-title animated zoomIn">
-          15664091819
+          {{ blogInfo.websiteConfig.websiteName }}
         </h1>
         <!-- 一言 -->
         <div class="blog-intro">
-          结庐在人境 <span class="typed-cursor">|</span>
+          {{ obj.output }} <span class="typed-cursor">|</span>
         </div>
         <!-- 联系方式 -->
         <div class="blog-contact">
@@ -109,13 +109,13 @@
             <div class="author-wrapper">
               <!-- 博主头像 -->
               <v-avatar size="110">
-                <img class="author-avatar" :src="blogInfo"/>
+                <img class="author-avatar" style="object-fit: cover;" :src="blogInfo.websiteConfig.websiteAvatar"/>
               </v-avatar>
               <div style="font-size: 1.375rem;margin-top:0.625rem">
-                {{ blogInfo }}
+                {{ blogInfo.websiteConfig.websiteAuthor }}
               </div>
               <div style="font-size: 0.875rem;">
-                {{ blogInfo }}
+                {{ blogInfo.websiteConfig.websiteIntro }}
               </div>
             </div>
             <!-- 博客信息 -->
@@ -123,19 +123,19 @@
               <div class="blog-info-data">
                 <router-link to="/archives">
                   <div style="font-size: 0.875rem">文章</div>
-                  <div style="font-size: 1.25rem">数量：{{ blogInfo }}</div>
+                  <div style="font-size: 1.25rem">{{ blogInfo.articleCount }}</div>
                 </router-link>
               </div>
               <div class="blog-info-data">
                 <router-link to="/categories">
                   <div style="font-size: 0.875rem">分类</div>
-                  <div style="font-size: 1.25rem">分类信息{{ blogInfo }}</div>
+                  <div style="font-size: 1.25rem">{{ blogInfo.categoryCount}}</div>
                 </router-link>
               </div>
               <div class="blog-info-data">
                 <router-link to="/tags">
                   <div style="font-size: 0.875rem">标签</div>
-                  <div style="font-size: 1.25rem">标签信息{{ blogInfo }}</div>
+                  <div style="font-size: 1.25rem">{{ blogInfo.tagCount }}</div>
                 </router-link>
               </div>
             </div>
@@ -174,7 +174,7 @@
               <v-icon size="18">mdi-bell</v-icon>
               公告
             </div>
-            <div style="font-size:0.875rem">网站信息{{ blogInfo }}</div>
+            <div style="font-size:0.875rem">网站信息{{ blogInfo.websiteConfig.websiteNotice }}</div>
           </v-card>
           <!-- 网站信息 -->
           <v-card class="blog-card animated zoomIn mt-5">
@@ -187,7 +187,7 @@
                 运行时间:<span class="float-right">{{ time }}</span>
               </div>
               <div style="padding:4px 0 0">
-                总访问量:<span class="float-right">数字{{ blogInfo }}</span>
+                总访问量:<span class="float-right">{{ blogInfo.viewsCount}}</span>
               </div>
             </div>
           </v-card>
@@ -202,6 +202,7 @@
 </template>
 
 <script>
+import EasyTyper from "easy-typer-js";
 export default {
   name: "home",
   data() {
@@ -260,7 +261,13 @@ export default {
   methods: {
     // 初始化
     init() {
-      console.log(this.blogInfo)
+      document.title = this.blogInfo.websiteConfig.websiteName
+      // 一言 打字机效果
+      fetch('https://v1.hitokoto.cn').then(res =>{
+        return res.json();
+      }).then(({ hitokoto }) =>{
+        this.initTyped(hitokoto)
+      })
     },
     // 向下滚动
     scrollDown() {
@@ -269,11 +276,51 @@ export default {
         top: document.documentElement.clientHeight
       });
     },
-
+    initTyped(input, fn, hooks) {
+      const obj = this.obj;
+      // eslint-disable-next-line no-unused-vars
+      const typed = new EasyTyper(obj, input, fn, hooks);
+    },
+    runTime() {
+      const timeOld =
+          new Date().getTime() -
+          new Date(this.blogInfo.websiteConfig.websiteCreateTime).getTime();
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const daySold = Math.floor(timeOld / msPerDay);
+      let str = "";
+      const day = new Date();
+      str += daySold + "天";
+      str += day.getHours() + "时";
+      str += day.getMinutes() + "分";
+      str += day.getSeconds() + "秒";
+      this.time = str;
+    },
     // 无限加载
     infiniteHandler($state) {
-
+      let md = require("markdown-it")();
+      this.axios.get("/api/article/list", {
+        params: { current: this.current }
+      }).then(res => {
+        if (res.data.data.length){
+          // 去处markdown的标签
+          res.data.data.forEach(item => {
+            item.articleContent = md
+                .render(item.articleContent)
+                .replace(/<\/?[^>]*>/g, "")
+                .replace(/[|]*\n/, "")
+                .replace(/&npsp;/gi, "");
+          })
+          this.articleList.push(...res.data.data)
+          this.current++;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      }).catch(error => {
+        console.log(error);
+      })
     }
+
   }
 }
 </script>

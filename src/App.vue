@@ -3,7 +3,7 @@
     <!-- 导航栏 -->
     <TopNavBar></TopNavBar>
     <!-- 侧边导航栏 -->
-    <SideNavBar></SideNavBar>
+<!--    <SideNavBar></SideNavBar>-->
     <!-- 内容 -->
     <v-main style="padding-bottom: 0">
       <router-view :key="$route.fullPath"/>

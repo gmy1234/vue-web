@@ -14,6 +14,12 @@ import VueAxios from "vue-axios";
 import config from "@/assets/js/config";
 import Toast from "./components/toast/index";
 import VueImageSwipe from "vue-image-swipe"; // 壁纸用的组件
+import "highlight.js/styles/atom-one-dark.css";
+import Share from "vue-social-share";
+import "./assets/css/vue-social-share/client.css";
+import "./assets/css/markdown.css";
+import animated from "animate.css";
+
 
 Vue.prototype.config = config
 Vue.config.productionTip = false
@@ -24,6 +30,8 @@ Vue.use(InfiniteLoading)
 Vue.use(VueAxios,axios)
 Vue.use(Toast)
 Vue.use(VueImageSwipe)
+Vue.use(Share)
+Vue.use(animated)
 
 
 Vue.filter("date", function(value) {
@@ -40,6 +48,13 @@ Vue.filter("hour", function(value) {
 
 Vue.filter("time", function(value) {
   return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+});
+
+Vue.filter("num", function(value) {
+  if (value >= 1000) {
+    return (value / 1000).toFixed(1) + "k";
+  }
+  return value;
 });
 
 // 远程引用 iconfont 图标
