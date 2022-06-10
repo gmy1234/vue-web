@@ -63,7 +63,7 @@
     </div>
     <!-- 文章内容 -->
     <v-row class="article-container">
-      <v-col md="9" cols="12">
+      <v-col md="9" cols="12" style="text-align: left">
         <v-card class="article-wrapper">
           <article
               id="write"
@@ -123,7 +123,6 @@
             <!-- 上一篇 -->
 
             <!-- 下一篇 -->
-
           </div>
           <!-- 推荐文章 -->
 
@@ -234,7 +233,6 @@ export default {
   },
   created() {
     this.getArticle()
-
   },
   methods:{
     getArticle() {

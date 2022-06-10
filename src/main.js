@@ -14,6 +14,7 @@ import VueAxios from "vue-axios";
 import config from "@/assets/js/config";
 import Toast from "./components/toast/index";
 import VueImageSwipe from "vue-image-swipe"; // 壁纸用的组件
+import "vue-image-swipe/dist/vue-image-swipe.css";
 import "highlight.js/styles/atom-one-dark.css";
 import Share from "vue-social-share";
 import "./assets/css/vue-social-share/client.css";
