@@ -105,7 +105,7 @@
                 {{ item.tagName }}
               </router-link>
             </div>
-            <share style="margin-left:auto" :config="config" />
+
           </div>
           <!-- 点赞打赏等 -->
           <div class="article-reward">
