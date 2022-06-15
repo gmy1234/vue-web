@@ -16,8 +16,6 @@ import Toast from "./components/toast/index";
 import VueImageSwipe from "vue-image-swipe"; // 壁纸用的组件
 import "vue-image-swipe/dist/vue-image-swipe.css";
 import "highlight.js/styles/atom-one-dark.css";
-import Share from "vue-social-share";
-import "./assets/css/vue-social-share/client.css";
 import "./assets/css/markdown.css";
 import animated from "animate.css";
 
@@ -31,8 +29,8 @@ Vue.use(InfiniteLoading)
 Vue.use(VueAxios,axios)
 Vue.use(Toast)
 Vue.use(VueImageSwipe)
-Vue.use(Share)
-Vue.use(animated)
+
+// Vue.use(animated)
 
 
 Vue.filter("date", function(value) {
