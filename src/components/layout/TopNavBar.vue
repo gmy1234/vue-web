@@ -65,7 +65,7 @@
             <img class="user-avatar" :src="this.$store.state.avatar" height="30" width="30"/>
             <ul class="menus-submenu">
               <li>
-                <router-link to="/album">个人中心</router-link>
+                <router-link to="/user">个人中心</router-link>
               </li>
               <li>
                 <a @click="logout"> 退出</a>

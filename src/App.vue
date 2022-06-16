@@ -5,7 +5,7 @@
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
     <!-- 内容 -->
-    <v-main style="padding: 0 0 0; ">
+    <v-main style="padding: 0 0 140px; ">
       <router-view :key="$route.fullPath"/>
     </v-main>
     <!-- 底部 -->

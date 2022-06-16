@@ -16,7 +16,11 @@ const classMap = {
   play: 'icon-yule1', // 娱乐
   about: 'icon-guanyu', // 关于
   message: 'icon-liuyan', // 留言
-  login: 'icon-denglu' // 登陆
+  login: 'icon-denglu', // 登陆
+
+  // 个人展示：
+  qq: 'icon-QQ',
+  github: 'icon-github'
 
 }
 export default {
