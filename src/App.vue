@@ -5,7 +5,7 @@
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
     <!-- 内容 -->
-    <v-main style="padding-bottom: 0">
+    <v-main style="padding: 0 0 0; ">
       <router-view :key="$route.fullPath"/>
     </v-main>
     <!-- 底部 -->
@@ -32,6 +32,17 @@ export default {
     SideNavBar,
     LoginModel,
     RegisterModel
+  },
+  computed: {
+    blogInfo() {
+      return this.$store.state.blogInfo;
+    },
+    isMobile() {
+      const flag = navigator.userAgent.match(
+          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+      );
+      return flag;
+    }
   },
   created() {
     // 获取博客信息
