@@ -8,10 +8,8 @@
         </router-link>
       </div>
       <div style="margin-left:auto">
-        <a @click="openSearch"><i class="iconfont"/></a>
-        <a @click="openDrawer" style="margin-left:10px;font-size:20px">
-          <i class="iconfont " />
-        </a>
+        <a @click="openSearch"></a>
+        <a @click="openDrawer" style="margin-left:10px;font-size:20px"></a>
       </div>
     </div>
     <!-- 电脑导航栏 -->
@@ -116,10 +114,10 @@ export default {
       }
     },
     openSearch() {
-      // this.$store.state.searchFlag = true;
+      this.$store.state.searchFlag = true;
     },
     openDrawer() {
-      // this.$store.state.drawer = true;
+      this.$store.state.drawer = true;
     },
     openLogin() {
       // 变量 true 打开登陆页面

@@ -49,7 +49,7 @@ export default {
         index: index
       });
     },
-    // 无限加载 TODO: 需要仔细了解
+    // TODO: 需要仔细了解无限加载
     infiniteHandler($state) {
       console.log(this.$route.params.id)
       this.axios.get("/api/wallpaper/albums/" + this.$route.params.id, {
