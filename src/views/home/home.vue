@@ -142,26 +142,24 @@
             </a>
             <!-- 社交信息 -->
             <div class="card-info-social">
-              qq
               <a
                   v-if="isShowSocial('qq')"
                   class="mr-5"
                   target="_blank"
                   :href="null"
-              />
-              github
+              ><v-icon>mdi-qqchat</v-icon></a>
               <a
                   v-if="isShowSocial('github')"
                   target="_blank"
-                  :href="null"
-                  class="mr-5 "
-              />
-              gitee
+                  :href="blogInfo.websiteConfig.github"
+                  class="mr-5"
+              ><v-icon>mdi-github</v-icon></a>
               <a
                   v-if="isShowSocial('gitee')"
                   target="_blank"
-                  :href="blogInfo"
-              />
+                  class="mr-5"
+                  :href="blogInfo.websiteConfig.gitee"
+              > <v-icon>mdi-alpha-g-circle</v-icon></a>
             </div>
           </v-card>
           <!-- 网站信息 -->

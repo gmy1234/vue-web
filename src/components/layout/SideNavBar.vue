@@ -101,7 +101,6 @@
         </div>
       </div>
     </div>
-
   </v-navigation-drawer>
 </template>
 

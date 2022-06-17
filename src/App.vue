@@ -2,7 +2,7 @@
   <v-app id="app">
     <!-- 导航栏 -->
     <TopNavBar></TopNavBar>
-    <!-- 侧边导航栏 -->
+    <!-- 侧边导航栏 app端-->
     <SideNavBar></SideNavBar>
     <!-- 内容 -->
     <v-main style="padding: 0 0 140px;" v-if="status">
