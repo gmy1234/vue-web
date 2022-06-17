@@ -29,7 +29,6 @@ Vue.use(InfiniteLoading)
 Vue.use(VueAxios,axios)
 Vue.use(Toast)
 Vue.use(VueImageSwipe)
-
 // Vue.use(animated)
 
 

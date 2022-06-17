@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        component: resolve => require(["../views/home/home.vue"], resolve)
+        component: () => import('@/views/home/home.vue')
     },
     {
         path: "/articles/:articleId",

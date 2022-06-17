@@ -82,7 +82,7 @@ export default new Vuex.Store({
       state.emailFlag = false;
     },
     articleLike(state, articleId) {
-      var articleLikeSet = state.articleLikeSet;
+      const articleLikeSet = state.articleLikeSet;
       if (articleLikeSet.indexOf(articleId) !== -1) {
         articleLikeSet.splice(articleLikeSet.indexOf(articleId), 1);
       } else {
@@ -90,7 +90,7 @@ export default new Vuex.Store({
       }
     },
     commentLike(state, commentId) {
-      var commentLikeSet = state.commentLikeSet;
+      const commentLikeSet = state.commentLikeSet;
       if (commentLikeSet.indexOf(commentId) !== -1) {
         commentLikeSet.splice(commentLikeSet.indexOf(commentId), 1);
       } else {
@@ -98,7 +98,7 @@ export default new Vuex.Store({
       }
     },
     talkLike(state, talkId) {
-      var talkLikeSet = state.talkLikeSet;
+      const talkLikeSet = state.talkLikeSet;
       if (talkLikeSet.indexOf(talkId) !== -1) {
         talkLikeSet.splice(talkLikeSet.indexOf(talkId), 1);
       } else {

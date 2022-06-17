@@ -5,7 +5,7 @@
     <!-- 侧边导航栏 -->
     <SideNavBar></SideNavBar>
     <!-- 内容 -->
-    <v-main style="padding: 0 0 140px; ">
+    <v-main style="padding: 0 0 140px;" v-if="status">
       <router-view :key="$route.fullPath"/>
     </v-main>
     <!-- 底部 -->
@@ -33,6 +33,11 @@ export default {
     LoginModel,
     RegisterModel
   },
+  data() {
+    return {
+      status: false
+    }
+  },
   computed: {
     blogInfo() {
       return this.$store.state.blogInfo;
@@ -44,6 +49,7 @@ export default {
       return flag;
     }
   },
+
   created() {
     // 获取博客信息
     this.getBlogInfo();
@@ -53,7 +59,8 @@ export default {
   methods:{
     getBlogInfo() {
       this.axios.get("/api/blog/info").then(res  => {
-        this.$store.commit("checkBlogInfo", res.data.data);
+        this.$store.commit('checkBlogInfo', res.data.data);
+        this.status = true
       })
     }
   }
