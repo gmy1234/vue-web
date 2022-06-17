@@ -20,12 +20,8 @@
           </a>
           <a v-if="isShowSocial('github')"
              target="_blank"
-             :href="null"
-          >git</a>
-          <a v-if="isShowSocial('gitee')"
-             target="_blank"
-             :href="null"
-          >gitee</a>
+             :href="blogInfo.websiteConfig.github"
+          ><IconFont type="github"/>Github</a>
         </div>
       </div>
       <!-- 向下滚动 -->
@@ -203,8 +199,10 @@
 
 <script>
 import EasyTyper from "easy-typer-js";
+import IconFont from "@/components/Iconfont";
 export default {
   name: "home",
+  components: {IconFont},
   data() {
     return {
       tip: false,
@@ -241,8 +239,7 @@ export default {
     // 展示社交项
     isShowSocial() {
       return function (social) {
-        return true
-        // return this.blogInfo.websiteConfig.socialUrlList.indexOf(social) != -1;
+        return this.blogInfo.websiteConfig.socialUrlList.indexOf(social) !== -1;
       };
     },
     cover() {
@@ -257,6 +254,7 @@ export default {
   },
   created() {
     this.init()
+    this.timer = setInterval(this.runTime, 1000);
   },
   methods: {
     // 初始化
