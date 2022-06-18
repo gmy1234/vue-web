@@ -14,6 +14,8 @@
     <LoginModel/>
     <!-- 注册模态框 -->
     <RegisterModel/>
+    <!-- 忘记密码  -->
+    <ForgetModel/>
   </v-app>
 </template>
 
@@ -23,6 +25,7 @@ import SideNavBar from "./components/layout/SideNavBar.vue";
 import FooterBar from "./components/layout/FooterBar.vue";
 import LoginModel from "@/components/model/LoginModel";
 import RegisterModel from "@/components/model/RegisterModel";
+import ForgetModel from "@/components/model/ForgetModel";
 
 export default {
   name: 'App',
@@ -31,7 +34,8 @@ export default {
     TopNavBar,
     SideNavBar,
     LoginModel,
-    RegisterModel
+    RegisterModel,
+    ForgetModel
   },
   data() {
     return {
