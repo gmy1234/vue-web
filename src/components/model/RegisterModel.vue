@@ -43,7 +43,9 @@
         <!-- 登录 -->
         <div class="mt-10 login-tip">
           已有账号？
-          <span @click="openLogin">登录</span>
+          <v-btn small color="primary" dark @click="openLogin">
+            登陆
+          </v-btn>
         </div>
       </div>
     </v-card>
