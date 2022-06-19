@@ -34,7 +34,7 @@
               <router-link to="/category">分类</router-link>
             </li>
             <li>
-              <router-link to="/tags"> 标签</router-link>
+              <router-link to="/tag"> 标签</router-link>
             </li>
           </ul>
         </div>

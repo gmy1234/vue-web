@@ -40,7 +40,19 @@ const routes = [
     },
     {
         path: '/category/:categoryId',
-        name: "文章列表",
+        name: "分类下的文章列表",
+        component: () => import('@/views/article/ArticleList.vue'),
+        meta: {title: "文章列表"},
+    },
+    {
+        path: '/tag',
+        name: "标签列表",
+        component: () => import('@/views/tag/tag.vue'),
+        meta: {title: "标签"},
+    },
+    {
+        path: '/tag/:tagId',
+        name: "标签下的文章列表",
         component: () => import('@/views/article/ArticleList.vue'),
         meta: {title: "文章列表"},
     }

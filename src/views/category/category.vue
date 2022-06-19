@@ -54,7 +54,7 @@ export default {
         this.count = res.data.data.count;
       });
     }
-  },
+  }
 }
 </script>
 
