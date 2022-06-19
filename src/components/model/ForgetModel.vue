@@ -113,7 +113,7 @@ export default {
           //发送邮件
           that.countDown();
           that.axios
-              .get("/api/users/code", {
+              .get("/api/user/code", {
                 params: {username: that.username}
               })
               .then(({data}) => {
@@ -147,7 +147,7 @@ export default {
         this.$toast({ type: "error", message: "邮箱格式不正确" });
         return false;
       }
-      if (this.code.trim().length != 6) {
+      if (this.code.trim().length !== 6) {
         this.$toast({ type: "error", message: "请输入6位验证码" });
         return false;
       }
@@ -160,11 +160,13 @@ export default {
         password: this.password,
         code: this.code
       };
-      this.axios.put("/api/users/password", user).then(({ data }) => {
-        if (data.flag) {
+      this.axios.post("/api/user/resetPassword", user).then(res => {
+        if (res.data.flag) {
           this.$toast({ type: "success", message: "修改成功" });
+          this.$store.state.forgetFlag = false;
+          this.$store.state.loginFlag = true;
         } else {
-          this.$toast({ type: "error", message: data.message });
+          this.$toast({ type: "error", message: res.data.flag.message });
         }
       });
     }

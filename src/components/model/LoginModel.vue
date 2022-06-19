@@ -128,7 +128,7 @@ export default {
               this.loginFlag = false
               this.$store.state.isLogin = true
             }else {
-              this.$toast({ type: "error", methods: "登陆失败" })
+              this.$toast({ type: "error", message: "登陆失败" })
             }
           }).catch(error =>{
             console.log(error)
