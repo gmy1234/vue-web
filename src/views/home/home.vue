@@ -304,7 +304,7 @@ export default {
     // 无限加载
     infiniteHandler($state) {
       let md = require("markdown-it")();
-      this.axios.get("/api/article/list", {
+      this.axios.get("/api/article/homeList", {
         params: { current: this.current }
       }).then(res => {
         if (res.data.data.length){

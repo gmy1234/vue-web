@@ -63,18 +63,13 @@
         </router-link>
       </div>
       <div class="menus-item">
-        <router-link to="/categories">
+        <router-link to="/category">
           分类
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/tags">
          标签
-        </router-link>
-      </div>
-      <div class="menus-item">
-        <router-link to="/links">
-           友链
         </router-link>
       </div>
       <div class="menus-item">

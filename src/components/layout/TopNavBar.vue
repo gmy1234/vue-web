@@ -31,7 +31,7 @@
               <router-link to="/archives">归档</router-link>
             </li>
             <li>
-              <router-link to="/categories">分类</router-link>
+              <router-link to="/category">分类</router-link>
             </li>
             <li>
               <router-link to="/tags"> 标签</router-link>
