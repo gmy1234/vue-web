@@ -8,10 +8,8 @@
         </router-link>
       </div>
       <div style="margin-left:auto">
-        <a @click="openSearch"><i class="iconfont"/></a>
-        <a @click="openDrawer" style="margin-left:10px;font-size:20px">
-          <i class="iconfont " />
-        </a>
+        <a @click="openSearch"></a>
+        <a @click="openDrawer" style="margin-left:10px;font-size:20px"></a>
       </div>
     </div>
     <!-- 电脑导航栏 -->
@@ -33,7 +31,7 @@
               <router-link to="/archives">归档</router-link>
             </li>
             <li>
-              <router-link to="/categories">分类</router-link>
+              <router-link to="/category">分类</router-link>
             </li>
             <li>
               <router-link to="/tags"> 标签</router-link>
@@ -116,10 +114,10 @@ export default {
       }
     },
     openSearch() {
-      // this.$store.state.searchFlag = true;
+      this.$store.state.searchFlag = true;
     },
     openDrawer() {
-      // this.$store.state.drawer = true;
+      this.$store.state.drawer = true;
     },
     openLogin() {
       // 变量 true 打开登陆页面

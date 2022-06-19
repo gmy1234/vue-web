@@ -14,14 +14,24 @@
         <!-- 联系方式 -->
         <div class="blog-contact">
           <a v-if="isShowSocial('qq')"
-             class="mr-5 iconfont "
+             class="mr-5"
              target="_blank"
-             :href="null">qq
+             :href="null">
+          <v-icon color="white">mdi-qqchat</v-icon>
           </a>
           <a v-if="isShowSocial('github')"
              target="_blank"
-             :href="blogInfo.websiteConfig.github"
-          ><IconFont type="github"/>Github</a>
+             class="mr-5"
+             :href="blogInfo.websiteConfig.github">
+            <v-icon color="white">mdi-github</v-icon>
+          </a>
+          <a
+              v-if="isShowSocial('gitee')"
+              target="_blank"
+              class="mr-5"
+              :href="blogInfo.websiteConfig.gitee">
+            <v-icon color="white">mdi-alpha-g-circle</v-icon>
+          </a>
         </div>
       </div>
       <!-- 向下滚动 -->
@@ -142,26 +152,24 @@
             </a>
             <!-- 社交信息 -->
             <div class="card-info-social">
-              qq
               <a
                   v-if="isShowSocial('qq')"
                   class="mr-5"
                   target="_blank"
                   :href="null"
-              />
-              github
+              ><v-icon>mdi-qqchat</v-icon></a>
               <a
                   v-if="isShowSocial('github')"
                   target="_blank"
-                  :href="null"
-                  class="mr-5 "
-              />
-              gitee
+                  :href="blogInfo.websiteConfig.github"
+                  class="mr-5"
+              ><v-icon>mdi-github</v-icon></a>
               <a
                   v-if="isShowSocial('gitee')"
                   target="_blank"
-                  :href="blogInfo"
-              />
+                  class="mr-5"
+                  :href="blogInfo.websiteConfig.gitee"
+              > <v-icon>mdi-alpha-g-circle</v-icon></a>
             </div>
           </v-card>
           <!-- 网站信息 -->
@@ -296,7 +304,7 @@ export default {
     // 无限加载
     infiniteHandler($state) {
       let md = require("markdown-it")();
-      this.axios.get("/api/article/list", {
+      this.axios.get("/api/article/homeList", {
         params: { current: this.current }
       }).then(res => {
         if (res.data.data.length){

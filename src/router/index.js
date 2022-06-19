@@ -31,6 +31,18 @@ const routes = [
         component: () => import('@/views/wallpaper/photo.vue'),
         meta: {title: "壁纸"},
 
+    },
+    {
+        path: '/category',
+        name: "分类",
+        component: () => import('@/views/category/category.vue'),
+        meta: {title: "分类"},
+    },
+    {
+        path: '/category/:categoryId',
+        name: "文章列表",
+        component: () => import('@/views/article/ArticleList.vue'),
+        meta: {title: "文章列表"},
     }
 
 

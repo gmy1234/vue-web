@@ -28,8 +28,12 @@
         </v-btn>
         <!-- 注册和找回密码 -->
         <div class="mt-10 login-tip">
-          <span @click="openRegister">立即注册</span>
-          <span @click="openForget" class="float-right">忘记密码?</span>
+          <v-btn x-middle @click="openRegister" color="success" dark class="float-left">
+            立即注册
+          </v-btn>
+          <v-btn color="warning" dark class="float-right" @click="openForget">
+            忘记密码?
+          </v-btn>
         </div>
         <div v-if="socialLoginList.length > 0">
           <div class="social-login-title">社交账号登录</div>
@@ -124,7 +128,7 @@ export default {
               this.loginFlag = false
               this.$store.state.isLogin = true
             }else {
-              this.$toast({ type: "error", methods: "登陆失败" })
+              this.$toast({ type: "error", message: "登陆失败" })
             }
           }).catch(error =>{
             console.log(error)

@@ -21,7 +21,7 @@
             placeholder="请输入6位验证码"
             @keyup.enter="register"
           />
-          <v-btn :loading="buttonLoad" :disabled="messageCodeFlag" color="success" @click="sendCode" small>
+          <v-btn :disabled="messageCodeFlag" color="success" @click="sendCode" small>
             {{ codeMsg }}
           </v-btn>
         </div>
@@ -37,13 +37,16 @@
           @click:append="show = !show"
         />
         <!-- 注册按钮 -->
-        <v-btn class="mt-7" block color="red" style="color:#fff" @click="register">
+        <v-btn class="mt-7" block color="red" :loading="loading" :disabled="loading" style="color:#fff" @click="register">
           注册
+          <template v-slot:loader><span>Loading...</span></template>
         </v-btn>
         <!-- 登录 -->
         <div class="mt-10 login-tip">
           已有账号？
-          <span @click="openLogin">登录</span>
+          <v-btn small color="primary" dark @click="openLogin">
+            登陆
+          </v-btn>
         </div>
       </div>
     </v-card>
@@ -54,6 +57,7 @@
 export default {
   data: function() {
     return {
+      loading: false,
       username: "",
       code: "",
       password: "",
@@ -85,21 +89,20 @@ export default {
     },
     // 发送验证码
     sendCode() {
+      const that = this
       // eslint-disable-next-line no-undef
       const captcha = new TencentCaptcha(this.config.TENCENT_CAPTCHA,  (res)=> {
-        console.log(res)
         if (res.ret === 0){
           // 倒计时
-          this.countDown()
+          that.countDown()
           // 发送邮件
-          this.axios.get("api/user/code",{
+          that.axios.get("api/user/code",{
             params:{ username: this.username }
           }).then(res =>{
             if (res.data.flag) {
-              this.$toast({ type: "success", message: "发送成功" });
-              // TODO :注册完直接进行登陆
+              that.$toast({ type: "success", message: "发送成功" });
             } else {
-              this.$toast({ type: "error", message: "发送失败" });
+              that.$toast({ type: "error", message: "发送失败" });
             }
           })
 
@@ -110,7 +113,7 @@ export default {
     },
     // 发送按钮变成60s 倒计时
     countDown() {
-      this.flag = true;
+      this.messageCodeFlag = true;
       this.timer = setInterval(() => {
         this.time--;
         this.codeMsg = this.time + "s";
@@ -119,12 +122,12 @@ export default {
           clearInterval(this.timer);
           this.codeMsg = "发送";
           this.time = 60;
-          this.flag = false;
+          this.messageCodeFlag = false;
         }
       }, 1000);
     },
     register() {
-      var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       if (!reg.test(this.username)) {
         this.$toast({type: "error", message: "邮箱格式不正确"});
         return false;
@@ -142,13 +145,18 @@ export default {
         password: this.password,
         code: this.code
       };
+      this.loading = true
       this.axios.post("api/user/register", user).then(res =>{
-        if (res.flag){
+        console.log(res.data)
+        if (res.data.flag){
           this.$toast({type: "success", message: "注册成功"});
-
+          this.loading = false
+          this.$store.state.loginFlag = true
+          this.$store.state.registerFlag =false
         }
       }).catch(error =>{
         this.$toast({type: "error", message: "注册失败"});
+        this.loading = false
       })
     }
 

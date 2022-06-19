@@ -352,7 +352,7 @@ export default {
           .replace(/[|]*\n/, "")
           .replace(/&npsp;/gi, "");
     },
-    // TODO: 完善
+    // TODO: 完善点赞
     like() {
       // 判断登录
       if (!this.$store.state.userId) {
