@@ -1,12 +1,89 @@
 <template>
   <div>
-    <div class="comment-title"><i class="iconfont" />评论</div>
+    <div class="comment-title"><v-icon>mdi-comment-processing-outline</v-icon>评论</div>
+    <!-- 评论框 -->
+    <div class="comment-input-wrapper">
+      <div style="display:flex">
+        <v-avatar size="40">
+          <img v-if="this.$store.state.avatar" :src="this.$store.state.avatar"/>
+          <img v-else :src="this.$store.state.blogInfo.websiteConfig.touristAvatar"/>
+        </v-avatar>
+        <div style="width:100%" class="ml-3">
+          <div class="comment-input">
+            <textarea
+                class="comment-textarea"
+                v-model="commentContent"
+                placeholder="留下点什么吧..."
+                auto-grow
+                dense
+            />
+          </div>
+          <!-- 操作按钮 -->
+          <div class="emoji-container">
+            <span
+                :class="chooseEmoji ? 'emoji-btn-active' : 'emoji-btn'"
+                @click="chooseEmoji = !chooseEmoji"
+            >
+              <v-icon>mdi-emoticon-happy-outline</v-icon>
+            </span>
+            <button
+                @click="insertComment"
+                class="upload-btn v-comment-btn"
+                style="margin-left:auto"
+            >
+              提交
+            </button>
+          </div>
+          <!-- 表情框 -->
+          <Emoji @addEmoji="addEmoji" :chooseEmoji="chooseEmoji" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Emoji from "@/components/Emoji";
 export default {
-  name: "Comment.vue"
+  name: "Comment.vue",
+  components: {
+    Emoji
+  },
+  props: {
+    type: {
+      type: Number
+    }
+  },
+  data() {
+    return {
+      reFresh: true,
+      commentContent: "", // 评论内容
+      chooseEmoji: false, // 选择点击表情
+      current: 1,
+      commentList: [],
+      count: 0
+    }
+  },
+  computed: {
+    isLike() {
+      return function(commentId) {
+        const commentLikeSet = this.$store.state.commentLikeSet;
+        return commentLikeSet.indexOf(commentId) !== -1 ? "like-active" : "like";
+      };
+    }
+  },
+  created() {
+
+  },
+  methods: {
+    addEmoji(key) {
+      console.log("key" + key)
+      this.commentContent += key;
+    },
+    insertComment(){
+
+    }
+  }
 }
 </script>
 
