@@ -66,104 +66,15 @@
             <!-- 发表时间 -->
             <span style="margin-right:10px">{{ item.createTime | date }}</span>
             <!-- 点赞 -->
-            <span :class="isLike(item.id) + ' iconfont icondianzan'" @click="like(item)"/>
+            <span  @click="like(item)">
+              <v-icon :class="isLikeClass(item.id)">mdi-thumb-up</v-icon>
+            </span>
             <span v-show="item.likeCount > 0"> {{ item.likeCount }}</span>
             <!-- 回复 -->
-            <span class="reply-btn" @click="replyComment(index, item)">
-              回复
-            </span>
+            <span class="reply-btn" @click="replyComment(index, item)">回复</span>
           </div>
           <!-- 评论内容 -->
           <p v-html="item.commentContent" class="comment-content"></p>
-          <!-- 回复人 -->
-          <div
-              style="display:flex"
-              v-for="reply of item.replyDTOList"
-              :key="reply.id"
-          >
-            <!-- 头像 -->
-            <v-avatar size="36" class="comment-avatar">
-              <img :src="reply.avatar"/>
-            </v-avatar>
-            <div class="reply-meta">
-              <!-- 用户名 -->
-              <div class="comment-user">
-                <span v-if="!reply.webSite">{{ reply.nickname }}</span>
-                <a v-else :href="reply.webSite" target="_blank">
-                  {{ reply.nickname }}
-                </a>
-                <span class="blogger-tag" v-if="reply.userId == 1">博主</span>
-              </div>
-              <!-- 信息 -->
-              <div class="comment-info">
-                <!-- 发表时间 -->
-                <span style="margin-right:10px">
-                  {{ reply.createTime | date }}
-                </span>
-                <!-- 点赞 -->
-                <span
-                    :class="isLike(reply.id) + ' iconfont icondianzan'"
-                    @click="like(reply)"
-                />
-                <span v-show="reply.likeCount > 0"> {{ reply.likeCount }}</span>
-                <!-- 回复 -->
-                <span class="reply-btn" @click="replyComment(index, reply)">
-                  回复
-                </span>
-              </div>
-              <!-- 回复内容 -->
-              <p class="comment-content">
-                <!-- 回复用户名 -->
-                <template v-if="reply.replyUserId != item.userId">
-                  <span v-if="!reply.replyWebSite" class="ml-1">
-                    @{{ reply.replyNickname }}
-                  </span>
-                  <a
-                      v-else
-                      :href="reply.replyWebSite"
-                      target="_blank"
-                      class="comment-nickname ml-1"
-                  >
-                    @{{ reply.replyNickname }}
-                  </a>
-                  ，
-                </template>
-                <span v-html="reply.commentContent"/>
-              </p>
-            </div>
-          </div>
-          <!-- 回复数量 -->
-          <div
-              class="mb-3"
-              style="font-size:0.75rem;color:#6d757a"
-              v-show="item.replyCount > 3"
-              ref="check"
-          >
-            共
-            <b>{{ item.replyCount }}</b>
-            条回复，
-            <span
-                style="color:#00a1d6;cursor:pointer"
-                @click="checkReplies(index, item)"
-            >
-              点击查看
-            </span>
-          </div>
-          <!-- 回复分页 -->
-          <div class="mb-3" style="font-size:0.75rem;color:#222;display:none" ref="paging">
-            <span style="padding-right:10px">
-              共{{ Math.ceil(item.replyCount / 5) }}页
-            </span>
-            <paging
-                ref="page"
-                :totalPage="Math.ceil(item.replyCount / 5)"
-                :index="index"
-                :commentId="item.id"
-                @changeReplyCurrent="changeReplyCurrent"
-            />
-          </div>
-          <!-- 回复框 -->
-          <Reply :type="type" ref="reply" @reloadReply="reloadReply"/>
         </div>
       </div>
       <!-- 加载按钮 -->
@@ -182,7 +93,7 @@
 
 <script>
 import Emoji from "@/components/Emoji";
-
+import EmojiList from "../assets/js/emoji";
 export default {
   name: "Comment.vue",
   components: {
@@ -204,12 +115,13 @@ export default {
     }
   },
   computed: {
-    isLike() {
+    isLikeClass() {
       return function (commentId) {
         const commentLikeSet = this.$store.state.commentLikeSet;
         return commentLikeSet.indexOf(commentId) !== -1 ? "like-active" : "like";
       };
     }
+
   },
   created() {
     this.listComments()
@@ -219,6 +131,57 @@ export default {
       this.commentContent += key;
     },
     insertComment() {
+      // 判断登录
+      if (!this.$store.state.userId) {
+        this.$store.state.loginFlag = true;
+        return false;
+      }
+      // 判空
+      if (this.commentContent.trim() === "") {
+        this.$toast({ type: "error", message: "评论不能为空" });
+        return false;
+      }
+      // 解析表情
+      const reg = /\[.+?\]/g;
+      this.commentContent = this.commentContent.replace(reg, function(str) {
+        return (
+            "<img src= '" +
+            EmojiList[str] +
+            "' width='24'height='24' style='margin: 0 1px;vertical-align: text-bottom'/>"
+        );
+      });
+      //发送请求
+      const path = this.$route.path;
+      const arr = path.split("/");
+      console.log(arr)
+      const comment = {
+        commentContent: this.commentContent,
+        type: this.type
+      };
+      switch (this.type) {
+        case 1:
+        case 3:
+          comment.topicId = arr[2];
+          break;
+        default:
+          break;
+      }
+      this.commentContent = "";
+      this.axios.post("/api/comment", comment).then(({ data }) => {
+        if (data.flag) {
+          // 查询最新评论
+          this.current = 1;
+          this.listComments();
+          const isReview = this.$store.state.blogInfo.websiteConfig.isCommentReview;
+          if (isReview) {
+            this.$toast({ type: "warnning", message: "评论成功，正在审核中" });
+          } else {
+            this.$toast({ type: "success", message: "评论成功" });
+          }
+        } else {
+          this.$toast({ type: "error", message: data.message });
+        }
+      });
 
     },
     listComments() {
@@ -249,6 +212,27 @@ export default {
         this.$emit("getCommentCount", this.count);
       });
     },
+    like(comment){
+      // 判断登录
+      if (!this.$store.state.userId) {
+        this.$store.state.loginFlag = true;
+        return false;
+      }
+      // 发送请求
+      this.axios.post("/api/comment/" + comment.id + "/like").then(({ data }) => {
+        if (data.flag) {
+          console.log(this.$store.state.commentLikeSet)
+          // 是否保护此评论 ID
+          if (this.$store.state.commentLikeSet.indexOf(comment.id) !== -1) {
+            this.$set(comment, "likeCount", comment.likeCount - 1);
+          } else {
+            this.$set(comment, "likeCount", comment.likeCount + 1);
+          }
+          this.$store.commit("commentLike", comment.id);
+        }
+      });
+      this.isLike =! this.isLike
+    }
   }
 }
 </script>
@@ -355,13 +339,13 @@ export default {
 }
 
 .like:hover {
-  color: #eb5055;
+  color: darkorange;
 }
 
 .like-active {
   cursor: pointer;
   font-size: 0.875rem;
-  color: #eb5055;
+  color: darkorange;
 }
 
 .load-wrapper {
@@ -374,5 +358,8 @@ export default {
 .load-wrapper button {
   background-color: #49b1f5;
   color: #fff;
+}
+.icon-color{
+  color: darkorange;
 }
 </style>

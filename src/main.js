@@ -18,7 +18,7 @@ import "vue-image-swipe/dist/vue-image-swipe.css";
 import "highlight.js/styles/atom-one-dark.css";
 import "./assets/css/markdown.css";
 import animated from "animate.css";
-
+import { Upload } from 'element-ui';
 
 Vue.prototype.config = config
 Vue.config.productionTip = false
@@ -30,6 +30,7 @@ Vue.use(VueAxios,axios)
 Vue.use(Toast)
 Vue.use(VueImageSwipe)
 // Vue.use(animated)
+Vue.component(Upload.name, Upload);
 
 
 Vue.filter("date", function(value) {

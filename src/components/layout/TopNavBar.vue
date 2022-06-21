@@ -128,7 +128,7 @@ export default {
       if (this.$route.path === "/user") {
         this.$router.back();
       }
-      this.axios.get("api/user/logout",{
+      this.axios.get("/api/user/logout",{
         headers: { token: this.$store.state.userToken }
       }).then(res =>{
         if (res.data.flag) {
