@@ -9,16 +9,17 @@
       </div>
       <v-row class="info-wrapper">
         <v-col md="3" cols="12">
-          <button id="pick-avatar">
+          <el-upload
+              class="avatar-uploader"
+              action="/api/user/info/avatar"
+              :headers="userToken"
+              :before-upload="beforeUpload"
+              :on-success="uploadCover"
+          >
             <v-avatar size="140">
-              <img :src="this.$store.state.avatar" />
+              <img :src="this.$store.state.avatar" style="object-fit: cover" />
             </v-avatar>
-          </button>
-          <avatar-cropper
-              @uploaded="uploadAvatar"
-              trigger="#pick-avatar"
-              upload-url="/api/users/avatar"
-          />
+          </el-upload>
         </v-col>
         <v-col md="7" cols="12">
           <v-text-field
@@ -60,10 +61,10 @@
 </template>
 
 <script>
-import AvatarCropper from "vue-avatar-cropper";
+import * as imageConversion from "image-conversion";
+
 export default {
   name: "User",
-  components: { AvatarCropper },
   data() {
     return {
       userInfo: {
@@ -82,21 +83,25 @@ export default {
       return this.$store.state.loginType;
     },
     cover() {
-      const cover = "";
-      // this.$store.state.blogInfo.pageList.forEach(item => {
-      //   if (item.pageLabel === "user") {
-      //     cover = item.pageCover;
-      //   }
-      // });
+      let cover = "";
+      this.$store.state.blogInfo.backgroundList.forEach(item => {
+        if (item.backgroundLabel === "user") {
+          cover = item.backgroundCover;
+        }
+      });
       return "background: url(" + cover + ") center center / cover no-repeat";
+    },
+    // 上传前请求头添加 token
+    userToken(){
+      return {"token": this.$store.state.userToken}
     }
   },
   created() {
-    console.log(this.$store.state.userToken)
+
   },
   methods: {
     updateUserInfo() {
-      this.axios.put("/api/users/info", this.userInfo).then(({ data }) => {
+      this.axios.put("/api/user/info/update", this.userInfo).then(({ data }) => {
         if (data.flag) {
           this.$store.commit("updateUserInfo", this.userInfo);
           this.$toast({ type: "success", message: "修改成功" });
@@ -105,13 +110,22 @@ export default {
         }
       });
     },
-    uploadAvatar(data) {
-      if (data.flag) {
-        this.$store.commit("updateAvatar", data.data);
-        this.$toast({ type: "success", message: "上传成功" });
-      } else {
-        this.$toast({ type: "error", message: data.message });
-      }
+    beforeUpload(file) {
+      console.log("beforeUpload");
+      return new Promise(resolve => {
+        if (file.size / 1024 < 300) {
+          resolve(file);
+        }
+        // 压缩到200KB,这里的200就是要压缩的大小,可自定义
+        imageConversion.compressAccurately(file, 300).then(res => {
+          resolve(res);
+        });
+      });
+    },
+    uploadCover(response) {
+      console.log(response)
+      this.$store.commit("updateAvatar", response.data);
+      this.$toast({type: 'success', message: "上传成功！"})
     },
     openEmailModel() {
       this.$store.state.emailFlag = true;
@@ -121,6 +135,13 @@ export default {
 </script>
 
 <style scoped>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 .info-title {
   font-size: 1.25rem;
   font-weight: bold;

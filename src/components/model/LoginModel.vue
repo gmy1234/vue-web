@@ -23,7 +23,7 @@
             @click:append="show = !show"
         />
         <!-- 按钮 -->
-        <v-btn class="mt-7" block color="blue" style="color:#fff" @click="login">
+        <v-btn class="mt-7" :loading="loading" block color="blue" style="color:#fff" @click="login">
           登录
         </v-btn>
         <!-- 注册和找回密码 -->
@@ -56,7 +56,8 @@ export default {
     return{
       username: "",
       password: "",
-      show: false
+      show: false,
+      loading: false
     }
   },
   computed: {
@@ -111,6 +112,7 @@ export default {
       // 图形验证码
       const captcha = new TencentCaptcha(this.config.TENCENT_CAPTCHA, res => {
         if (res.ret === 0) {
+          this.loading = true
           // 发送登陆请求
           let parma = {
             username: this.username,
@@ -123,13 +125,16 @@ export default {
               this.password = ""
               // 提交token 到 全局变量中
               this.$store.commit("login", res.data.data)
+              // token 的时间
+              window.sessionStorage.setItem("tokenStartTime", new Date().getTime())
               this.$toast({ type: "success", message: "登录成功" })
               // 关闭登陆框
               this.loginFlag = false
               this.$store.state.isLogin = true
             }else {
-              this.$toast({ type: "error", message: "登陆失败" })
+              this.$toast({ type: "error", message: res.data.message })
             }
+            this.loading = false
           }).catch(error =>{
             console.log(error)
           })

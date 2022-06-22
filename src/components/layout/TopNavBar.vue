@@ -19,7 +19,7 @@
       </div>
       <div class="float-right nav-title" style="font-size: 16px;font-weight: bolder">
         <div class="menus-item">
-          <a class="menu-btn" @click="openSearch"><IconFont type="search"/>搜索</a>
+          <a class="menu-btn" @click="openSearch"><v-icon>mdi-magnify</v-icon>搜索</a>
         </div>
         <div class="menus-item">
           <router-link class="menu-btn" to="/"><icon-font type="home"/>首页</router-link>
@@ -31,18 +31,18 @@
               <router-link to="/archives">归档</router-link>
             </li>
             <li>
-              <router-link to="/category">分类</router-link>
+              <router-link to="/category"><v-icon>mdi-shape-outline</v-icon>分类</router-link>
             </li>
             <li>
-              <router-link to="/tags"> 标签</router-link>
+              <router-link to="/tag"><v-icon>mdi-tag-multiple</v-icon> 标签</router-link>
             </li>
           </ul>
         </div>
         <div class="menus-item">
-          <a class="menu-btn"><icon-font type="play"/>娱乐</a>
+          <a class="menu-btn"> <v-icon>mdi-microsoft-xbox-controller</v-icon>娱乐</a>
           <ul class="menus-submenu">
             <li>
-              <router-link :to="{name: 'wallpaper' }"> 相册</router-link>
+              <router-link :to="{name: 'wallpaper' }"> <v-icon>mdi-wallpaper</v-icon> 相册</router-link>
             </li>
             <li>
               <router-link to="/talks"> 说说</router-link>
@@ -66,7 +66,7 @@
                 <router-link to="/user">个人中心</router-link>
               </li>
               <li>
-                <a @click="logout"> 退出</a>
+                <a @click="logout"><v-icon>mdi-logout</v-icon> 退出</a>
               </li>
             </ul>
           </template>
@@ -128,7 +128,7 @@ export default {
       if (this.$route.path === "/user") {
         this.$router.back();
       }
-      this.axios.get("api/user/logout",{
+      this.axios.get("/api/user/logout",{
         headers: { token: this.$store.state.userToken }
       }).then(res =>{
         if (res.data.flag) {

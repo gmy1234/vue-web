@@ -221,8 +221,7 @@ export default {
     },
     isLike() {
       const articleLikeSet = this.$store.state.articleLikeSet;
-      // return articleLikeSet.indexOf(this.article.id) !== -1 ? "like-btn-active" : "like-btn";
-      return true;
+      return articleLikeSet.indexOf(this.article.id) !== -1 ? "like-btn-active" : "like-btn";
     },
     isFull() {
       return function(id) {

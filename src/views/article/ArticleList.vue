@@ -36,7 +36,7 @@
                     :to="'/category/' + item.categoryId"
                     class="float-right"
                 >
-                  <v-icon>mdi-bookmark</v-icon>{{ name }}
+                  <v-icon>mdi-bookmark</v-icon>{{ item.categoryName }}
                 </router-link>
               </div>
             </div>
@@ -79,7 +79,7 @@ export default {
   },
   computed:{
     cover() {
-      var cover = "";
+      let cover = "";
       this.$store.state.blogInfo.backgroundList.forEach(item => {
         if (item.backgroundLabel === "articleList") {
           cover = item.backgroundLabel;
@@ -99,7 +99,7 @@ export default {
   methods: {
     infiniteHandler($state) {
       this.axios
-          .get("/api/article/listByCategory", {
+          .get("/api/article/listByCategoryOrTag", {
             params: {
               categoryId: this.$route.params.categoryId,
               tagId: this.$route.params.tagId,
