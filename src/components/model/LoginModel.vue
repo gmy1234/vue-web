@@ -125,12 +125,14 @@ export default {
               this.password = ""
               // 提交token 到 全局变量中
               this.$store.commit("login", res.data.data)
+              // token 的时间
+              window.sessionStorage.setItem("tokenStartTime", new Date().getTime())
               this.$toast({ type: "success", message: "登录成功" })
               // 关闭登陆框
               this.loginFlag = false
               this.$store.state.isLogin = true
             }else {
-              this.$toast({ type: "error", message: "登陆失败" })
+              this.$toast({ type: "error", message: res.data.message })
             }
             this.loading = false
           }).catch(error =>{

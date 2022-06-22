@@ -17,7 +17,7 @@
               :on-success="uploadCover"
           >
             <v-avatar size="140">
-              <img :src="this.$store.state.avatar" />
+              <img :src="this.$store.state.avatar" style="object-fit: cover" />
             </v-avatar>
           </el-upload>
         </v-col>
