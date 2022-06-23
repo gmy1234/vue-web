@@ -8,8 +8,10 @@
         </router-link>
       </div>
       <div style="margin-left:auto">
-        <a @click="openSearch"></a>
-        <a @click="openDrawer" style="margin-left:10px;font-size:20px"></a>
+        <a @click="openSearch"><v-icon>>mdi-magnify</v-icon></a>
+        <a @click="openDrawer" style="margin-left:10px;font-size:20px">
+          <v-icon color="white">mdi-hamburger</v-icon>
+        </a>
       </div>
     </div>
     <!-- 电脑导航栏 -->
