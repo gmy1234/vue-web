@@ -55,7 +55,13 @@ const routes = [
         name: "标签下的文章列表",
         component: () => import('@/views/article/ArticleList.vue'),
         meta: {title: "文章列表"},
-    }
+    },
+    {
+        path: '/archives',
+        name: "归档",
+        component: () => import('@/views/article/Archive.vue'),
+        meta: {title: "归档"},
+    },
 
 
 ]
