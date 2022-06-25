@@ -30,7 +30,7 @@
           <a class="menu-btn"><icon-font type="discover"/>发现</a>
           <ul class="menus-submenu">
             <li>
-              <router-link to="/archives">归档</router-link>
+              <router-link to="/archives"><v-icon>mdi-format-list-bulleted-square</v-icon>归档</router-link>
             </li>
             <li>
               <router-link to="/category"><v-icon>mdi-shape-outline</v-icon>分类</router-link>
