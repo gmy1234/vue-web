@@ -23,7 +23,7 @@
               <!-- 发表时间 -->
               <div class="time">
                 {{ item.createTime | time }}
-                <span class="top" v-if="item.isTop == 1">
+                <span class="top" v-if="item.isTop === 1">
                   <i class="iconfont iconzhiding" /> 置顶
                 </span>
               </div>
@@ -111,7 +111,7 @@ export default {
     isLike() {
       return function(talkId) {
         var talkLikeSet = this.$store.state.talkLikeSet;
-        return talkLikeSet.indexOf(talkId) != -1 ? "#eb5055" : "#999";
+        return talkLikeSet.indexOf(talkId) !== -1 ? "#eb5055" : "#999";
       };
     }
   },
@@ -154,8 +154,8 @@ export default {
         return false;
       }
       // 发送请求
-      this.axios.post("/api/talk/" + talk.id + "/like").then(({ data }) => {
-        if (data.flag) {
+      this.axios.post("/api/talk/" + talk.id + "/like").then(res => {
+        if (res.data.flag) {
           // 判断是否点赞
           if (this.$store.state.talkLikeSet.indexOf(talk.id) !== -1) {
             this.$set(talk, "likeCount", talk.likeCount - 1);
@@ -163,6 +163,8 @@ export default {
             this.$set(talk, "likeCount", talk.likeCount + 1);
           }
           this.$store.commit("talkLike", talk.id);
+        } else {
+          this.$toast({ type: "error", message: res.data.message })
         }
       });
     }
