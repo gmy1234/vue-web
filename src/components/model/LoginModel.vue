@@ -118,7 +118,7 @@ export default {
             username: this.username,
             password: this.password
           }
-          this.axios.post("api/user/login", parma).then(res => {
+          this.axios.post("/api/user/login", parma).then(res => {
             console.log(res)
             if (res.data.flag){
               this.username = ""
