@@ -47,15 +47,12 @@
               <router-link :to="{name: 'wallpaper' }"> <v-icon>mdi-wallpaper</v-icon> 相册</router-link>
             </li>
             <li>
-              <router-link to="/talks"> 说说</router-link>
+              <router-link :to="{name: '说说'}"><v-icon>mdi-message-processing-outline</v-icon> 说说</router-link>
             </li>
           </ul>
         </div>
         <div class="menus-item">
           <router-link class="menu-btn" to="/about"><icon-font type="about"/>关于</router-link>
-        </div>
-        <div class="menus-item">
-          <router-link class="menu-btn" to="/message"><icon-font type="message"/>留言</router-link>
         </div>
         <div class="menus-item">
           <a class="menu-btn" v-if="!this.$store.state.userToken" @click="openLogin">

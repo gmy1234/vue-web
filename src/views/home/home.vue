@@ -208,9 +208,13 @@
 <script>
 import EasyTyper from "easy-typer-js";
 import IconFont from "@/components/Iconfont";
+import Swiper from "@/components/Swiper";
 export default {
   name: "home",
-  components: {IconFont},
+  components: {
+    IconFont,
+    Swiper
+  },
   data() {
     return {
       tip: false,
@@ -262,6 +266,7 @@ export default {
   },
   created() {
     this.init()
+    this.listHomeTalks()
     this.timer = setInterval(this.runTime, 1000);
   },
   methods: {
@@ -274,6 +279,11 @@ export default {
       }).then(({ hitokoto }) =>{
         this.initTyped(hitokoto)
       })
+    },
+    listHomeTalks() {
+      this.axios.get("/api/talk/home").then(res => {
+        this.talkList = res.data.data;
+      });
     },
     // 向下滚动
     scrollDown() {

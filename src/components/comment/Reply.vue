@@ -28,8 +28,8 @@
 
 <script>
 
-import Emoji from "./Emoji";
-import EmojiList from "../assets/js/emoji";
+import Emoji from "../Emoji";
+import EmojiList from "../../assets/js/emoji";
 export default {
   name: "Reply",
   components: {

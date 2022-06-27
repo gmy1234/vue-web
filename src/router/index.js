@@ -62,6 +62,13 @@ const routes = [
         component: () => import('@/views/article/Archive.vue'),
         meta: {title: "归档"},
     },
+    {
+        path: '/talk',
+        name: "说说",
+        component: () => import('@/views/talk/talk.vue'),
+        meta: {title: "说说"},
+
+    }
 
 
 ]
