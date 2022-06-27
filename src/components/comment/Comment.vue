@@ -162,9 +162,9 @@
 
 <script>
 import Emoji from "@/components/Emoji";
-import EmojiList from "../assets/js/emoji";
-import Reply from "@/components/Reply";
-import Paging from "@/components/Paging";
+import EmojiList from "../../assets/js/emoji";
+import Reply from "@/components/comment/Reply";
+import Paging from "@/components/comment/Paging";
 export default {
   name: "Comment.vue",
   components: {

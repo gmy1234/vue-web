@@ -177,7 +177,7 @@
 
 <script>
 import Clipboard from "clipboard";
-import Comment from "../../components/Comment";
+import Comment from "../../components/comment/Comment";
 import tocbot from "tocbot";
 export default {
   components: {
