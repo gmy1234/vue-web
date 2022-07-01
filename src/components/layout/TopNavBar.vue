@@ -41,16 +41,24 @@
           </ul>
         </div>
         <div class="menus-item">
-          <a class="menu-btn"> <v-icon>mdi-microsoft-xbox-controller</v-icon>娱乐</a>
+          <a class="menu-btn">
+            <v-icon>mdi-microsoft-xbox-controller</v-icon>娱乐
+          </a>
           <ul class="menus-submenu">
             <li>
-              <router-link :to="{name: 'wallpaper' }"> <v-icon>mdi-wallpaper</v-icon> 相册</router-link>
+              <router-link :to="{name: 'wallpaper' }">
+                <v-icon>mdi-wallpaper</v-icon> 相册
+              </router-link>
             </li>
             <li>
               <router-link :to="{name: '说说'}"><v-icon>mdi-message-processing-outline</v-icon> 说说</router-link>
             </li>
           </ul>
         </div>
+        <div class="menus-item">
+          <router-link :to="{name: 'FriendLink' }"><v-icon>mdi-link-variant</v-icon>友接</router-link>
+        </div>
+
         <div class="menus-item">
           <router-link class="menu-btn" to="/about"><icon-font type="about"/>关于</router-link>
         </div>
