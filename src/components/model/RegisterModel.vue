@@ -147,18 +147,22 @@ export default {
       };
       this.loading = true
       this.axios.post("api/user/register", user).then(res =>{
-        console.log(res.data)
         if (res.data.flag){
           this.$toast({type: "success", message: "注册成功"});
           this.loading = false
           this.$store.state.loginFlag = true
           this.$store.state.registerFlag =false
+        }else {
+          console.log(1)
+          this.$toast({type: "warnning", message: res.data.message});
+          this.loading = false
         }
       }).catch(error =>{
         this.$toast({type: "error", message: "注册失败"});
         this.loading = false
       })
     }
+
 
   },
 
