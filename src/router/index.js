@@ -73,7 +73,13 @@ const routes = [
         name: "说说详情",
         component: () => import('@/views/talk/TalkInfo.vue'),
         meta: {title: "说说详情"},
-    }
+    },
+    {
+        path: '/link',
+        name: "FriendLink",
+        component: () => import('@/views/link/Link.vue'),
+        meta: {title: "FriendLink"},
+    },
 
 
 ]
